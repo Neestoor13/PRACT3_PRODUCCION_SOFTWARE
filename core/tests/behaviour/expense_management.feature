@@ -47,3 +47,37 @@ Feature: Gestión de gastos
     And añado un gasto de 30 euros llamado Aliexpress
     And elimino el gasto con id 3
     Then el total de dinero gastado debe ser 40 euros
+  
+  Scenario: Crear 2 gastos en un gestor con un gasto de 20 euros y al eliminar el ultimo gasto por su titulo debe haber 2 gastos
+    Given un gestor con un gasto de 20 euros
+    When añado un gasto de 10 euros llamado Fruta
+    And añado un gasto de 20 euros llamado Chocolate
+    And elimino el gasto con título Chocolate
+    Then debe haber 2 gastos registrados
+
+  Scenario: Crear 2 gastos de 20, 30 euros y buscar uno de ellos por su titulo
+    Given un gestor de gastos vacío
+    When añado un gasto de 20 euros llamado Videojuego
+    And añado un gasto de 30 euros llamado Mando
+    And busco un gasto con título Mando
+    Then debe haber 1 resultados con ese título
+
+  Scenario: Crear 3 gastos de 20, 30 euros, 30 euros, actualizar la cantidad de id 1, eliminar el ultimo y comprobar el total gastado
+    Given un gestor de gastos vacío
+    When añado un gasto de 20 euros llamado Videojuego
+    And añado un gasto de 30 euros llamado Mando
+    And añado un gasto de 30 euros llamado Cargador
+    And actualizo el gasto con id 1 a 70 euros
+    And elimino el gasto con id 3
+    Then el total de dinero gastado debe ser 100 euros
+  
+  Scenario: Crear 3 gastos de 20, 30 euros, 30 euros, actualizar la cantidad del primero por su titulo, eliminar el ultimo y comprobar el total gastado
+    Given un gestor de gastos vacío
+    When añado un gasto de 20 euros llamado Videojuego
+    And añado un gasto de 30 euros llamado Mando
+    And añado un gasto de 30 euros llamado Cargador
+    And actualizo el gasto con título Videojuego a 80 euros
+    And elimino el gasto con id 3
+    Then el total de dinero gastado debe ser 110 euros
+  
+  

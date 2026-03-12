@@ -39,6 +39,32 @@ def remove_expense(context, expense_id):
     context["service"].remove_expense(expense_id)
 
 
+@when(parsers.parse("elimino el gasto con título {title}"))
+def remove_expense_by_title(context, title):
+    for expense in context["service"].list_expenses():
+        if expense.title == title:
+            context["service"].remove_expense(expense.id)
+            break
+
+
+@when(parsers.parse("busco un gasto con título {title}"))
+def search_expense_by_title(context, title):
+    context["results"] = [expense for expense in context["service"].list_expenses() if expense.title == title]
+
+
+@when(parsers.parse("actualizo el gasto con id {expense_id:d} a {amount:d} euros"))
+def update_expense(context, expense_id, amount):
+    context["service"].update_expense(expense_id=expense_id, amount=amount)
+
+
+@when(parsers.parse("actualizo el gasto con título {title} a {amount:d} euros"))
+def update_expense_by_title(context, title, amount):
+    for expense in context["service"].list_expenses():
+        if expense.title == title:
+            context["service"].update_expense(expense_id=expense.id, amount=amount)
+            break
+
+
 @then(parsers.parse("el total de dinero gastado debe ser {total:d} euros"))
 def check_total(context, total):
     assert context["service"].total_amount() == total
@@ -48,3 +74,7 @@ def check_total(context, total):
 def check_expenses_length(context, expenses):
     total = len(context["db"]._expenses)
     assert expenses == total
+
+@then(parsers.parse("debe haber {count:d} resultados con ese título"))
+def check_results(context, count):
+    assert len(context["results"]) == count
