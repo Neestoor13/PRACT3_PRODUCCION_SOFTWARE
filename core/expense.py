@@ -18,7 +18,7 @@ class Expense:
 
     def __post_init__(self):
         """
-        FIXME: Revisen si falta algo que comprobar...
+        Devuelve, además de la excepciones declaradas, la excepción EmptyTitleError si no existe título.
         """
 
         if self.title == "":
