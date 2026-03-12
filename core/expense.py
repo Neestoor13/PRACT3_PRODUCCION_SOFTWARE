@@ -18,7 +18,9 @@ class Expense:
 
     def __post_init__(self):
         """
-        Devuelve, además de la excepciones declaradas, la excepción EmptyTitleError si no existe título.
+        Devuelve, además de las excepciones declaradas, la excepción EmptyTitleError si no existe título.
+
+        :return: None
         """
 
         if self.title == "":

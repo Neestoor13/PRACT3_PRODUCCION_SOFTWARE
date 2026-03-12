@@ -70,6 +70,7 @@ class ExpenseService:
     def total_amount(self) -> float:
         """
         Devuelve la suma de los amounts de todos los Expenses.
+        
         :return: float
         """
         total_amount = 0.0
